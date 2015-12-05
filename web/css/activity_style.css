@@ -1,0 +1,65 @@
+.content{
+    z-index:9999;
+  }
+  
+  .round{
+  border-radius:50%;
+  height:125px;
+  width:125px;
+  margin:0 auto;
+  display:block;
+  
+}
+
+.adv-card h4{
+  color:black;
+  text-align:center;
+}
+
+hr{
+margin-top:5px;
+margin-bottom:5px;
+
+      border: 0;
+    height: 1px;
+    background-image: linear-gradient(to right, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.45), rgba(0, 0, 0, 0));
+
+}
+
+.adv-card{
+  padding-top:34px;
+  padding-bottom:25px;
+  margin-bottom:10px;
+    margin-top:10px;
+}
+
+.adv:active{
+  background-color:red;
+}
+
+.infoIcon{
+  float:right;
+  size:40px;
+  color:black;
+}
+
+a {
+    text-decoration: none;
+}
+
+.bg1{
+  background-image: url("http://s20.postimg.org/au2uz7f65/c835ee9d2c82df5db38963e724b8c80b.jpg");
+      background-repeat: no-repeat;
+    background-size: 100% auto;
+     -webkit-filter: blur(7px);
+  filter: blur(7px);
+  
+  position:fixed !important;
+position:absolute;
+top:0;
+right:0;
+bottom:0;
+left:0;
+
+
+  }

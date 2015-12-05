@@ -1,0 +1,102 @@
+.outer {
+  display: block;
+  height: 210px;
+  width: 100%;
+}
+
+.frame {
+  height: 210px;
+  width: 100%;
+  position: absolute;
+  display: inherit;
+}
+
+h1 {
+  color: white;
+  font-size: 1.4em;
+  letter-spacing: 0.13em;
+  text-align: center;
+}
+
+.title h1 {
+  color: white;
+  font-size: 1.4em;
+  letter-spacing: 0.13em;
+  text-align: right;
+}
+
+.place-name {
+  position: relative;
+  top: 120px;
+  z-index: 999;
+}
+
+.right {
+  float: right;
+}
+
+a {
+  text-decoration: none !important;
+}
+
+
+/*------------Tablet CSS----------------*/
+
+@media (min-width: 500px) and (max-width: 800px) {
+  .place-name {
+    position: relative;
+    z-index: 999;
+    margin-bottom: 0px;
+    top: -160px;
+  }
+  .frame {
+    height: 350px;
+    display: inline-block;
+    position: relative;
+  }
+  .outer {
+    display: inline-block;
+    height: 350px;
+    padding: 0px;
+    margin-top: -29px;
+  }
+}
+
+
+/*------------Desktop CSS----------------*/
+
+@media (min-width: 801px) {
+  .photo-grid {
+    margin-left: 4px;
+  }
+  .outer {
+    display: inline-block;
+    height: 350px;
+    width: 33.3333333333%;
+    padding: 0px;
+    margin-top: -49px;
+    margin-left: -3px;
+  }
+  .frame {
+    height: 300px;
+    display: inline-block;
+    position: relative;
+  }
+  .place-name {
+    position: relative;
+    z-index: 999;
+    margin-bottom: 0px;
+    top: -160px;
+  }
+}
+
+.coming-soon{
+  height:40px;
+  width:140px;
+  position:relative;
+  float:right;
+  background-color:rgba(200,43,76,0.8);
+  color:#fff;
+  font-size:16px;
+  
+}

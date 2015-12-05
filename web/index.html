@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+    <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
+    <body>
+
+        <div ng-app="myApp" ng-controller="customersCtrl"> 
+
+            <ul>
+                <li ng-repeat="x in names">
+                    <img src="{{x.activity_img.url}}" width="100" height="100">
+                    {{ x.name + ', ' + x.createdAt}}
+                </li>
+            </ul>
+
+        </div>
+
+        <script>
+            var app = angular.module('myApp', []);
+            app.controller('customersCtrl', function ($scope, $http) {
+                $http.get('https://api.parse.com/1/classes/Activities',
+                        {headers: {'Content-Type': 'application/json',
+                                'X-Parse-Application-Id': 'F1dHKsVXw4lbq92GiIh4bweQrXJ9Wd3Q2HvkU9Qq',
+                                'X-Parse-REST-API-Key': 'CGb7VX5dxZZeVFnCc9kMpNSwvRZejJbLTUDtaICw'}})
+                        .then(function (response) {
+
+                            console.log(response.data.results[0]);
+                            $scope.names = response.data.results;
+                        });
+            });
+
+
+
+
+
+
+
+
+
+        </script>
+
+    </body>
+</html>

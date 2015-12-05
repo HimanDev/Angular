@@ -1,0 +1,193 @@
+
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no, width=device-width">
+  <link href="css/ionic.min.css" rel="stylesheet">
+  <script src="js/ionic.bundle.js"></script>
+  <link href="css/activity_details_style.css" rel="stylesheet">
+
+<style>
+</style>
+</head>
+
+<body ng-app="app">
+  <div class="bar bar-header">
+    <div class="top">
+      <ion-slide-box on-slide-changed="slideHasChanged($index)" class="topslide">
+        <ion-slide>
+          <div class="one bg1"></div>
+        </ion-slide>
+        <ion-slide>
+          <div class="two bg2"></div>
+        </ion-slide>
+        <ion-slide>
+          <div class="three bg3"></div>
+        </ion-slide>
+      </ion-slide-box>
+      <div class="button-bar" style="max-height:auto">
+        <a href="http://play.ionic.io/m/861d4a89ea3b" class="button small" style="max-width:50px">
+          <i class="icon ion-android-arrow-back"></i>
+
+        </a>
+        <a class="button" style="max-width:84px">Duration<div class="upup">5-6 Hrs</div></a>
+        <a class="button" style="max-width:73px">Price<div class="upup">₹2500</div></a>
+
+
+        <a class="button button-positive" href="http://play.ionic.io/m/6612b15b91e3"><h4 style="color:#fff; margin-top:15%">Book Now</h4></a>
+
+      </div>
+    </div>
+  </div>
+  <ion-pane>
+    <ion-content>
+
+      <div class="bottom-screen">
+      
+        <div class="card padding">Rock climbing is an activity in which participants climb up, down or across natural rock formations or artificial rock walls. Here in Manali, we do the real thing.</div>
+        
+
+        <h3 class="padding"><u>Details</u></h3>
+        <div class="card">
+          <div class="item item-divider">
+            Tickets Availability
+          </div>
+          <div class="item item-text-wrap">
+            <ul class="list">
+              <li class="item">Today
+                <div class="card-text-right assertive">No</div>
+              </li>
+              <li class="item">Tomorrow
+                <div class="card-text-right balanced">
+                 Yes
+                </div>
+              </li>
+              <li class="item">Day after Tomorrow
+                <div class="card-text-right balanced">Yes</div>
+              </li>
+
+
+            </ul>
+          </div>
+        </div>
+        <div class="card">
+          <div class="item item-divider">
+            When and Where
+          </div>
+          <div class="item item-text-wrap">
+            <ul class="list">
+
+              <li class="item">Time
+                <div class="card-text-right">10:30 am</div>
+              </li>
+              <li class="item">Meeting Point
+                <div class="card-text-right">Johnson Cafe</div>
+              </li>
+
+            </ul>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="item item-divider">
+            For whom?
+          </div>
+          <div class="item item-text-wrap">
+            <ul class="list">
+              <li class="item">Suitable for
+                <div class="card-text-right">Beginners</div>
+              </li>
+              <li class="item">Age
+                <div class="card-text-right">10+</div>
+              </li>
+
+            </ul>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="item item-divider">
+            Feel Safe
+          </div>
+          <div class="item item-text-wrap">
+            <ul class="list">
+              <li class="item">Certified Instructor
+                <div class="card-text-right">
+                   <i class="icon ion-ios-checkmark-outline balanced"  style="font-size:35px;"></i>
+                </div>
+              </li>
+              <li class="item">C.E. Certified Gear
+                <div class="card-text-right"> <i class="icon ion-ios-checkmark-outline balanced"  style="font-size:35px;"></i></div>
+              </li>
+              <li class="item">First Aid Kit
+                <div class="card-text-right"> <i class="icon ion-ios-checkmark-outline balanced"  style="font-size:35px;"></i></div>
+              </li>
+              <li class="item">Insurance
+                <div class="card-text-right"> <i class="icon ion-ios-checkmark-outline balanced"  style="font-size:35px;"></i></div>
+              </li>
+
+            </ul>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="item item-divider">
+            Food
+          </div>
+          <div class="item item-text-wrap">
+            <ul class="list">
+              <li class="item">Snacks
+                <div class="card-text-right"> <i class="icon ion-ios-checkmark-outline balanced"  style="font-size:35px;"></i></div>
+              </li>
+              <li class="item">Refreshments
+                <div class="card-text-right"> <i class="icon ion-ios-checkmark-outline balanced"  style="font-size:35px;"></i></div>
+              </li>
+
+
+            </ul>
+          </div>
+        </div>
+
+
+        <div class="card">
+          <div class="item item-divider">
+            Things to carry
+          </div>
+          <div class="item item-text-wrap">
+            <ul class="list">
+              <li class="item">Sunglass
+                <div class="card-text-right"></div>
+              </li>
+              <li class="item">Sunscreen lotion
+                <div class="card-text-right"></div>
+              </li>
+              <li class="item">Extra layer of clothing to keep you warm
+                <div class="card-text-right"></div>
+              </li>
+
+              <li class="item">Raincoat
+                <div class="card-text-right"></div>
+              </li>
+
+
+
+            </ul>
+          </div>
+        </div>
+
+
+
+
+      </div>
+      <hr>
+      <hr>
+    </ion-content>
+  </ion-pane>
+<script>
+angular.module('app', ['ionic']);
+</script>
+</body>
+
+</html>
