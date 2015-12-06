@@ -28,7 +28,7 @@
     <script>
                 var app = angular.module('app', ['ionic']);
              app.controller('customersCtrl', function ($scope, $http) {
-                    $http.post('https://api.parse.com/1/functions/getDestination',{},
+                    $http.post('https://api.parse.com/1/functions/getActivityTypes',{},
                             {headers: {'Content-Type': 'application/json',
                                     'X-Parse-Application-Id': 'mygNbgzfWdSggHlcU0pcon9TPkeQiHrzPUy2KFUm',
                                     'X-Parse-REST-API-Key': 'ImfofbwOkyNh6ZwG4LR1l7XcA5HmYCcJtKqTpqBw'}})
