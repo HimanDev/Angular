@@ -17,27 +17,30 @@
         <div style="width: 300px; height: 35px;" class="spacer"></div>
         <div  ng-repeat="x in names">
             <div class="adv-card"> 
-                <img src="{{x.activity_img.url}}" class="round">
-                <h4>{{x.name}}</h4>
+                <a href="activity_details.html">
+                     <img src="{{x.activity_img.url}}" class="round">
+                <h4>{{x.name}}</h4> 
+                </a>
+              
 
 
             </div> 
             <hr>
         </div>
- </ion-content>
+    </ion-content>
     <script>
-                var app = angular.module('app', ['ionic']);
-                app.controller('customersCtrl', function ($scope, $http) {
-                    $http.get('https://api.parse.com/1/classes/Activities',
-                            {headers: {'Content-Type': 'application/json',
-                                    'X-Parse-Application-Id': 'F1dHKsVXw4lbq92GiIh4bweQrXJ9Wd3Q2HvkU9Qq',
-                                    'X-Parse-REST-API-Key': 'CGb7VX5dxZZeVFnCc9kMpNSwvRZejJbLTUDtaICw'}})
-                            .then(function (response) {
+        var app = angular.module('app', ['ionic']);
+        app.controller('customersCtrl', function ($scope, $http) {
+            $http.get('https://api.parse.com/1/classes/Activities',
+                    {headers: {'Content-Type': 'application/json',
+                            'X-Parse-Application-Id': 'F1dHKsVXw4lbq92GiIh4bweQrXJ9Wd3Q2HvkU9Qq',
+                            'X-Parse-REST-API-Key': 'CGb7VX5dxZZeVFnCc9kMpNSwvRZejJbLTUDtaICw'}})
+                    .then(function (response) {
 
-                                console.log(response.data.results[0]);
-                                $scope.names = response.data.results;
-                            });
-                });
+                        console.log(response.data.results[0]);
+                        $scope.names = response.data.results;
+                    });
+        });
 
     </script>
 </body>

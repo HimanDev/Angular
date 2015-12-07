@@ -49,31 +49,27 @@ and open the template in the editor.
                 query.equalTo("ACTIVITY_TYPE_ID", activityTypeDetail);
                 query.find({
                     success: function (results) {
-                        console.log(results);
                         var availablesDates = [];
-
                         var advanceOccouranceBookTime = results[0].get("ADVANCE_OCCURENCE_BOOK_COUNT");
-                        console.log(advanceOccouranceBookTime);
-                      
-                      
                         for (var counter = 0; counter < advanceOccouranceBookTime; counter++) {
-                              console.log(results[0].get("ACTIVITY_OCCURENCE_ID").get());
+                            console.log(results[0].get("ACTIVITY_OCCURENCE_ID").get());
                             if (results[0].get("ACTIVITY_OCCURENCE_ID").get(dayObjest[counter])) {
                                 var myDate = new Date();
                                 myDate.setDate(myDate.getDate() + counter);
                                 availablesDates.push({
-                                    availableDates:myDate.toDateString()
+                                    availableDates: myDate.toDateString()
                                 });
                             }
                         }
-                     
+
 
 
                         var jsonObj = [];
                         jsonObj.push({
                             DURATION_TYPE: results[0].get("ACTIVITY_DURATION_ID").get("DURATION_TYPE"),
                             DURATION_VALUE: results[0].get("ACTIVITY_DURATION_ID").get("DURATION_VALUE"),
-                            AVAILABLE_DATES:availablesDates
+                            AVAILABLE_DATES: availablesDates,
+                            ACTIVITY_SUB_DETAILS: results[0].get("ACTIVITY_SUB_DETAILS")
                         });
 
                         var jsonString = JSON.stringify(jsonObj);
