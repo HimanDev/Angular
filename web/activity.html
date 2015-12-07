@@ -14,33 +14,32 @@
         <div class="bg1"></div>
 
     <ion-content class="padding" ng-controller="customersCtrl">
-        <div style="width: 300px; height: 35px;" class="spacer"></div>
+	 <div style="width: 300px; height: 35px;" class="spacer"></div>
         <div  ng-repeat="x in names">
             <div class="adv-card"> 
-                <a href="activity_details.html">
-                     <img src="{{x.activity_img.url}}" class="round">
-                <h4>{{x.name}}</h4> 
-                </a>
-              
-
+             <a href="activity_details.html">
+                <img src="{{x.ACTIVITY_TYPE_IMAGE.url}}" class="round"/>
+                <h4>{{x.TITLE}}</h4>
+			</a>
 
             </div> 
-            <hr>
+            <hr> 
         </div>
-    </ion-content>
+ </ion-content>
     <script>
-        var app = angular.module('app', ['ionic']);
-        app.controller('customersCtrl', function ($scope, $http) {
-            $http.get('https://api.parse.com/1/classes/Activities',
-                    {headers: {'Content-Type': 'application/json',
-                            'X-Parse-Application-Id': 'F1dHKsVXw4lbq92GiIh4bweQrXJ9Wd3Q2HvkU9Qq',
-                            'X-Parse-REST-API-Key': 'CGb7VX5dxZZeVFnCc9kMpNSwvRZejJbLTUDtaICw'}})
-                    .then(function (response) {
-
-                        console.log(response.data.results[0]);
-                        $scope.names = response.data.results;
-                    });
-        });
+                var app = angular.module('app', ['ionic']);
+                
+                app.controller('customersCtrl', function ($scope, $http, $location) {
+                	var param1 = $location.absUrl().split('=')[1].split('#')[0];
+                    $http.post('https://api.parse.com/1/functions/getActivityTypes',{dest_objectId:param1},
+                            {headers: {'Content-Type': 'application/json',
+                                    'X-Parse-Application-Id': 'mygNbgzfWdSggHlcU0pcon9TPkeQiHrzPUy2KFUm',
+                                    'X-Parse-REST-API-Key': 'ImfofbwOkyNh6ZwG4LR1l7XcA5HmYCcJtKqTpqBw'}})
+                            .then(function (response) {
+                                console.log(response.data.result);
+                                $scope.names = response.data.result;
+                            });
+                });
 
     </script>
 </body>

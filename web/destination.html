@@ -25,7 +25,7 @@
         <ion-content>
             <div class="photo-grid"  ng-controller="destinationUrl">
                 <div class="outer" ng-repeat="x in names">
-                    <a href="activity.html">
+                    <a href="activity.html?dest_objectId={{x.objectId}}">
                         <img src="{{x.DESTINATION_IMAGE.url}}" class="frame">
                         <div class="place-name">
                             <h1><b>{{x.NAME}}</b></h1></div>
