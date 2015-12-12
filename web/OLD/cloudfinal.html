@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<html>
+    <head>
+        <title>TODO supply a title</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    </head>
+    <body>
+        <script>
+            Parse.Cloud.define("getTicketsAvailable", function (request, response) {
+                var Activity = Parse.Object.extend("ACTIVITY");
+                var dayObjest = {0: "SUN", 1: "MON", 2: "TUE", 3: "WED", 4: "THU", 5: "FRI", 6: "SAT"};
+                var query = new Parse.Query(Activity);
+                query.include("ACTIVITY_TYPE_ID");
+                query.include("OPERATOR_ID");
+                query.include("ACTIVITY_OCCURENCE_ID");
+                query.include("ACTIVITY_DURATION_ID");
+                query.include("SUB_DETAILS_LIST");
+                query.get(request.params.activityId, {
+                    success: function (results) {
+                        var ticketsResult = [];
+                        var advanceOccouranceBookTime = results.get("ADVANCE_OCCURENCE_BOOK_COUNT");
+                        var i = new Date().getDay();
+                        for (var counter = i, k = 0; counter <= (advanceOccouranceBookTime + i); counter++, k++) {
+                            var j = counter;
+                            if (counter > 6) {
+                                j = counter - 7;
+                            }
+                            if (results.get("ACTIVITY_OCCURENCE_ID").get(dayObjest[j])) {
+                                var a = new Date();
+                                a.setDate(a.getDate() + k);
+                                ticketsResult.push({
+                                    date: a.toDateString(),
+                                    numberOfAvailableTickets: "60"
+                                });
+                            }
+
+                        }
+
+                        var minDate = new Date();
+                        minDate.setHours(0, 0, 0, 0);
+                        var maxDate = new Date();
+                        maxDate.setDate(minDate.getDate() + advanceOccouranceBookTime);
+                        maxDate.setHours(0, 0, 0, 0);
+                        var Ticket = Parse.Object.extend("TICKET");
+                        var ticketQuery = new Parse.Query(Ticket);
+                        ticketQuery.equalTo("ACTIVITY_ID", results);
+                        ticketQuery.greaterThanOrEqualTo("ACTIVITY_DATE_TIME", minDate)
+                        ticketQuery.lessThan("ACTIVITY_DATE_TIME", maxDate)
+                        ticketQuery.ascending("ACTIVITY_DATE_TIME");
+                        ticketQuery.find().then(function (obj) {
+
+
+                            for (var i = 0; i < obj.length; i++) {
+                                var activityDateTime = obj[i].get("ACTIVITY_DATE_TIME");
+                                var ticketSoldCount = obj[i].get("TICKET_SOLD_COUNT");
+
+                                for (var h = 0; h < ticketsResult.length; h++) {
+
+                                    if (ticketsResult[h].date === activityDateTime.toDateString()) {
+
+                                        var totaTicketsAvailable = ticketsResult[h].numberOfAvailableTickets;
+                                        ticketsResult[h].numberOfAvailableTickets = totaTicketsAvailable - ticketSoldCount;
+                                        break;
+                                    }
+                                }
+                            }
+                            jsonString = JSON.stringify(ticketsResult);
+                            console.log(jsonString);
+                            response.success(jsonString);
+
+                        }
+                        , function (error) {
+                            response.error("error");
+                        });
+
+
+                    },
+                    error: function (results, error) {
+                        response.error("error");
+                    }
+                });
+
+            });
+        </script>
+    </body>
+</html>

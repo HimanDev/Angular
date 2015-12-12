@@ -1,0 +1,66 @@
+<!-- saved from url=(0035)http://play.ionic.io/m/369bb7eda68b -->
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><style type="text/css">@charset "UTF-8";[ng\:cloak],[ng-cloak],[data-ng-cloak],[x-ng-cloak],.ng-cloak,.x-ng-cloak,.ng-hide:not(.ng-hide-animate){display:none !important;}ng\:form{display:block;}</style>
+  <meta charset="utf-8">
+  <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no, width=device-width">
+  <link href="css/ionic.min.css" rel="stylesheet">
+  <script src="js/ionic.bundle.js"></script>
+  <link href="css/ticket_count.css" rel="stylesheet">
+</head>
+
+<body ng-app="app" class="grade-a platform-browser platform-win32 platform-ready">
+  <ion-pane class="pane">
+  <div class="bg"></div>
+    <div class="bar bar-header">
+      <a href="http://play.ionic.io/m/6612b15b91e3" class="button button-icon ion-android-arrow-back"></a>
+      <div class="h1 title">Rock Climbing</div>
+      <button class="button button-icon icon ion-ios-information-outline"></button>
+    </div>
+    <ion-content class="padding scroll-content ionic-scroll"><div class="scroll" style="transform: translate3d(0px, 0px, 0px) scale(1);">
+          <br>
+      <br>
+<div ng-controller="ticketCountCtrl">
+      <h4 class="padding transparentbg">Cool! So, {{bookingDate}} it is then :)</h4>
+      <h3 class="padding card">How many tickets do you need?</h3>
+
+<div class="no-of-tickets-button padding" >
+ <b ng-repeat="x in range(orderTemp.REMAIN_TICKET_COUNT)">
+  <a href="userdetail.html?uniqueId={{orderTemp.objectId}}@{{orderTemp.ACTIVITY_ID.objectId}}@{{x}}" class="button round">{{x}}</a>
+</b>
+</div>
+</div>
+  
+  
+
+    </div><div class="scroll-bar scroll-bar-v"><div class="scroll-bar-indicator scroll-bar-fade-out" style="transform: translate3d(0px, 0px, 0px) scaleY(1); height: 0px;"></div></div></ion-content>
+  </ion-pane>
+<script>
+	var app = angular.module('app', ['ionic']);
+	app.controller('ticketCountCtrl', function ($scope, $http, $location) {
+		//var param1 = $location.absUrl().split('=')[1].split('#')[0];
+	    $http.post('https://api.parse.com/1/functions/getTicketCounts',{activityId:"nY8kjrFb8v", bookingDate:"2015-12-12T15:30" },
+	            {headers: {'Content-Type': 'application/json',
+	                    'X-Parse-Application-Id': 'mygNbgzfWdSggHlcU0pcon9TPkeQiHrzPUy2KFUm',
+	                    'X-Parse-REST-API-Key': 'ImfofbwOkyNh6ZwG4LR1l7XcA5HmYCcJtKqTpqBw'}})
+	            .then(function (response) {
+	                console.log(response.data.result);
+	                $scope.orderTemp = response.data.result;
+	                var da =  new Date(response.data.result.BOOKING_DATE.iso);
+	                var weekday=new Array("Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday");
+	                var monthname=new Array("Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec");
+					
+	                $scope.bookingDate = da.getDate()+" "+monthname[da.getMonth()]+" "+da.getFullYear()+", "+weekday[da.getDay()]+ " at "+
+	                						da.getHours()+":"+(da.getMinutes()==0?"00":da.getMinutes());
+	                $scope.range = function(max) {
+	                    var input = [];
+	                    for (var i = 1; i <= max; i++) {
+	                        input.push(i);
+	                    }
+	                    return input;
+	                }
+	            });
+	});
+
+</script>
+
+
+</body></html>

@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html>
+
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no, width=device-width">
+        <link href="css/ionic/ionic.min.css" rel="stylesheet">
+        <script src="js/ionic.bundle.js"></script>
+        <link href="css/ionic/ionicons.css" rel="stylesheet">
+        <script src="js/app.js"></script>
+        <link href="http://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+        <link href="css/custom/order_summary.css" rel="stylesheet">
+
+
+    </head>
+
+    <body ng-app="app">
+        <div ng-controller="orderSummaryCtrl">
+            <ion-pane>
+                <div class="bar bar-header">
+                    <button class="button button-icon ion-android-arrow-back" onclick="yourDetails();"></button>
+                    <div class="h1 title">Order Summary</div>
+                    <button class="button button-icon icon ion-ios-information-outline"></button>
+                </div>
+                <div class="bg"></div>
+                <ion-content class="padding centered" style="margin-top:35px">
+
+
+                    <div class="card order-summary">
+                        <div class="item item-divider">
+                            Temporary Order ID : 43224 </div>
+                        <div class="item item-text-wrap">
+                            <ul class="list">
+                                <li class="item">Who?
+                                    <div class="card-text-right positive">{{orderSummary.username}} +{{orderSummary.ticketCount - 1}}</div>
+                                </li>
+                                <li class="item">Doing What?
+                                    <div class="card-text-right positive">{{orderSummary.activityName}}</div>
+                                </li>
+                                <li class="item">Where?
+                                    <div class="card-text-right positive">{{orderSummary.destinationName}}</div>
+                                </li>
+                                <li class="item">When?
+                                    <div class="card-text-right positive">{{bookingDate}}</div>
+                                </li>
+                                <li class="item">Meeting Point
+                                    <div class="card-text-right positive">{{orderSummary.location}},
+                                        <br>{{orderSummary.destinationName}}</div>
+                                </li>
+
+
+                                <li class="item">Price per ticket
+                                    <div class="card-text-right positive">₹{{orderSummary.activityPrice}}</div>
+                                </li>
+                                <li class="item">No. of Tickets Purchased
+                                    <div class="card-text-right positive">{{orderSummary.ticketCount}}</div>
+
+                                </li>
+                                <li class="item">Total Amount
+                                    <div class="card-text-right positive">{{orderSummary.ticketCount * orderSummary.activityPrice}}</div>
+                                </li>
+                                <li class="item">
+                                    <div class="row">
+
+                                        <div class="col col-75">
+                                            <label class="item item-input item-floating-label">
+                                                <span class="input-label" style="display:inline">Discount Code</span>
+                                                <input type="text" placeholder="Discount Code" ng-model="discount.discountCode">
+                                            </label>
+                                        </div>
+                                        <div class="col">
+                                            <div class="card-text-right balanced button button-clear" style="margin-top:20px" ng-click = "applyDiscount()">
+                                                <p>Apply</p>
+                                            </div>
+                                            <div class="card-text-right balanced button button-clear" style="margin-top:20px">
+                                                <p>{{discount.discountAmount}}</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </li>
+                                <li class="item">Total
+                                    <div class="card-text-right balanced">₹{{orderSummary.orderAmount}}</div>
+                                </li> 
+                            </ul>
+                        </div>
+                    </div>
+
+                </ion-content>
+                <ion-footer-bar class="bar-positive">
+                    <div class="title" ng-click="makePayment()">Make Payment</div>        </ion-footer-bar>
+
+            </ion-pane>
+        </div>
+        <script>
+            var app = angular.module('app', ['ionic']);
+            app.controller('orderSummaryCtrl', function ($scope, $http, $location) {
+                var param1 = $location.absUrl().split('=')[1].split('#')[0];
+                $http.post('https://api.parse.com/1/functions/getOrderSummary', {orderTId: param1},
+                {headers: {'Content-Type': 'application/json',
+                        'X-Parse-Application-Id': 'mygNbgzfWdSggHlcU0pcon9TPkeQiHrzPUy2KFUm',
+                        'X-Parse-REST-API-Key': 'ImfofbwOkyNh6ZwG4LR1l7XcA5HmYCcJtKqTpqBw'}})
+                        .then(function (response) {
+                            $scope.orderSummary = response.data.result;
+                            var da = new Date(response.data.result.bookingDate.iso);
+                            var weekday = new Array("Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday");
+                            var monthname = new Array("Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec");
+
+                            $scope.bookingDate = da.getDate() + " " + monthname[da.getMonth()] + " " + da.getFullYear() + ", " + weekday[da.getDay()] + " at " +
+                                    da.getHours() + ":" + (da.getMinutes() == 0 ? "00" : da.getMinutes());
+                            $scope.discount = {};
+
+                            $scope.applyDiscount = function () {
+                                var orderSumm = $scope.orderSummary;
+                                var bookDate = $scope.bookingDate;
+                                var disc = $scope.discount.discountCode;
+                                alert('Hi ' + disc);
+                                $http.post('https://api.parse.com/1/functions/getDiscount', {disCode: disc, orderTId: param1},
+                                {headers: {'Content-Type': 'application/json',
+                                        'X-Parse-Application-Id': 'mygNbgzfWdSggHlcU0pcon9TPkeQiHrzPUy2KFUm',
+                                        'X-Parse-REST-API-Key': 'ImfofbwOkyNh6ZwG4LR1l7XcA5HmYCcJtKqTpqBw'}})
+                                        .then(function (response) {
+                                            $scope.orderSummary = orderSumm;
+                                            $scope.bookingDate = bookDate;
+                                            $scope.discount = response.data.result;
+                                            $scope.orderSummary.orderAmount = response.data.result.finalOrderPrice;
+                                        });
+                            }
+
+                            $scope.makePayment = function () {
+                                $http.post('https://api.parse.com/1/functions/insertOrder', {orderTId: param1},
+                                {headers: {'Content-Type': 'application/json',
+                                        'X-Parse-Application-Id': 'mygNbgzfWdSggHlcU0pcon9TPkeQiHrzPUy2KFUm',
+                                        'X-Parse-REST-API-Key': 'ImfofbwOkyNh6ZwG4LR1l7XcA5HmYCcJtKqTpqBw'}})
+                                        .then(function (response) {
+                                            console.log(response);
+                                    alert("here");
+                                            congrats();
+                                        });
+                            }
+
+                        });
+            });
+        </script>
+    </body>
+
+</html>

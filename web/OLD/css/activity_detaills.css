@@ -1,0 +1,113 @@
+.bg1{
+  background-image: url("http://www.photographyblogger.net/wp-content/uploads/2012/09/rock-climbing3.jpg");
+      background-repeat: no-repeat;
+    background-size: 100% 100%;
+
+  }
+  
+  .bg2{
+  background-image: url("http://s20.postimg.org/wzutiehl9/Screen_shot_2014_11_10_at_9_17_32_AM.png");
+      background-repeat: no-repeat;
+    background-size: 100% auto;
+
+  }
+  
+    .bg3{
+  background-image: url("http://s20.postimg.org/6g28g9h1p/rock_climbing_20130807.jpg");
+      background-repeat: no-repeat;
+    background-size: 100% 100%;
+
+  }
+  
+   hr{
+margin-top:5px;
+margin-bottom:5px;
+
+      border: 0;
+    height: 1px;
+    background-image: linear-gradient(to right, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.45), rgba(0, 0, 0, 0));
+
+}
+
+  .top {
+  width: 100vw;
+  position: relative;
+  top: 0;
+  left: 0;
+  margin: -6px -5px 0;
+}
+
+
+/* Styles here */
+
+.topslide {
+  height: 45vh;
+  width: 100%;
+}
+
+.bottom-screen {
+  margin-top: 57vh;
+}
+
+.one {
+  height: 100%;
+  background-color: yellow;
+}
+
+.two {
+  height: 100%;
+  background-color: pink;
+}
+
+.three {
+  height: 100%;
+  background-color: green;
+}
+
+.card-text-right {
+  float: right;
+  font-weight: bold;
+}
+
+.card-bg {
+  background-color: #444;
+}
+
+.upup {
+  display: block;
+  margin-top: -20px;
+  letter-spacing: 1px;
+  font-weight: bold;
+}
+
+
+.round-avatar{
+     
+  border-radius:50%;
+  height:65px;
+  width:65px;
+margin-top:-5px;
+display:block;
+margin:0 auto;
+}
+.justify{
+   text-align: justify;
+}
+
+
+
+@media (min-width:370px){
+  .card{
+  display:inline-block;
+  width:350px;
+      vertical-align: top;
+
+}
+  .topslide{
+    max-width:600px;
+    
+    height:400px;
+    margin:0 auto;
+    background-color:black;
+  }
+}

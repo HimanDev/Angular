@@ -1,0 +1,219 @@
+
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no, width=device-width">
+        <link href="css/ionic.min.css" rel="stylesheet">
+        <script src="js/ionic.bundle.js"></script>
+        <link href="css/activity_detaills.css" rel="stylesheet">
+        <link href="http://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css" rel="stylesheet">
+
+
+    </head>
+    <body ng-app="app" ng-controller="customersCtrl">
+    <ion-pane>
+        <div class="bar bar-header">
+            <button class="button button-icon ion-android-arrow-back" onclick="adventure();"></button>
+            <div class="h1 title">Adventure Details</div>
+            <button class="button button-icon icon ion-ios-information-outline"></button>
+        </div>
+
+        <ion-content>
+            <div style="width: 300px; height: 43px;" class="spacer"></div>
+
+            <ion-slide-box on-slide-changed="slideHasChanged($index)" class="topslide">
+                <ion-slide>
+                    <div class="one bg1"></div>
+                </ion-slide>
+                <ion-slide>
+                    <div class="two bg2"></div>
+                </ion-slide>
+                <ion-slide>
+                    <div class="three bg3"></div>
+                </ion-slide>
+            </ion-slide-box>    
+            <div class="button-bar bar-light" style="height:63px">
+
+                <a class="button" style="">Duration<div class="upup">{{durations}}</div></a>
+                <a class="button" style="">Price<div class="upup">{{price}}</div></a>
+                <a class="button" style="">Difficulty<div class="upup">Beginner</div></a>
+
+
+
+
+            </div>
+
+
+            <div class="card padding">{{activity_desc}}</div>
+
+
+            <div class="card">
+                <div class="item item-divider">
+                    Tickets Availability
+                </div>
+                <div class="item item-text-wrap">
+                    <ul class="list">
+                        <li class="item" ng-repeat="a in AVAILABLE_DATES">
+                            {{a.availableDates}}
+                            <div class="card-text-right balanced">Yes</div>
+                        </li>
+
+
+
+                    </ul>
+                </div>
+            </div>
+            <div class="card">
+                <div class="item item-divider">
+                    When and Where
+                </div>
+                <div class="item item-text-wrap">
+                    <ul class="list">
+
+                        <li class="item">Time
+                            <div class="card-text-right">10:30 am</div>
+                        </li>
+                        <li class="item">Meeting Point
+                            <div class="card-text-right">Johnson Cafe</div>
+                        </li>
+
+                    </ul>
+                </div>
+            </div>
+
+
+            <div class="card" ng-repeat="activitySubDetails in ACTIVITY_SUB_DETAILS">
+                <div class="item item-divider">
+                    {{activitySubDetails.header}}
+                </div>
+                <div class="item item-text-wrap">
+                    <ul class="list">
+                        <li class="item" ng-repeat="x in activitySubDetails.data">{{x.header}}
+                            <div class="card-text-right">{{x.data}}</div>
+                        </li>
+
+
+                    </ul>
+                </div>
+            </div>
+
+
+            <div class="card">
+                <div class="item item-divider">
+                    Organized by
+                </div>
+                <div class="item item-text-wrap">
+                    <img src="{{operator_image}}" class="round-avatar"><br>
+                    <div style="text-align:center"></div><br>
+                    <p style="margin-top:-15px; text-align:center">+91 9988998898 | <a class="__cf_email__" href="/cdn-cgi/l/email-protection" data-cfemail="97e4f6fffefbd7ffe2f9e3f1f6f4e3f8e5b9f4f8fa">[email&#160;protected]</a><script data-cfhash='f9e31' type="text/javascript">
+                                /* <![CDATA[ */!function () {
+                                    try {
+                                        var t = "currentScript"in document ? document.currentScript : function () {
+                                            for (var t = document.getElementsByTagName("script"), e = t.length; e--; )
+                                                if (t[e].getAttribute("data-cfhash"))
+                                                    return t[e]
+                                        }();
+                                        if (t && t.previousSibling) {
+                                            var e, r, n, i, c = t.previousSibling, a = c.getAttribute("data-cfemail");
+                                            if (a) {
+                                                for (e = "", r = parseInt(a.substr(0, 2), 16), n = 2; a.length - n; n += 2)
+                                                    i = parseInt(a.substr(n, 2), 16) ^ r, e += String.fromCharCode(i);
+                                                e = document.createTextNode(e), c.parentNode.replaceChild(e, c)
+                                            }
+                                            t.parentNode.removeChild(t);
+                                        }
+                                    } catch (u) {
+                                    }
+                                }()/* ]]> */</script></p><br>
+                    <p class="justify">{{operator_desc}}</p>
+                </div>
+            </div>
+
+
+            <hr>
+            <hr>
+            <br>
+
+
+
+
+
+        </ion-content>
+        <ion-footer-bar class="bar-positive">
+            <div class="title" onclick="selectDate();">Book Now</div>
+        </ion-footer-bar>
+    </ion-pane>
+    <script>
+                var app = angular.module('app', ['ionic']);
+
+                app.controller('customersCtrl', function ($scope, $http, $location) {
+                    var activityId = $location.absUrl().split('=')[1].split('#')[0];
+
+                    $http.post('https://api.parse.com/1/functions/getActivityDetails', {activityTypeId: activityId},
+                    {headers: {'Content-Type': 'application/json',
+                            'X-Parse-Application-Id': 'mygNbgzfWdSggHlcU0pcon9TPkeQiHrzPUy2KFUm',
+                            'X-Parse-REST-API-Key': 'ImfofbwOkyNh6ZwG4LR1l7XcA5HmYCcJtKqTpqBw'}})
+                            .then(function (response) {
+                                console.log(response);
+                                var obj = JSON.parse(response.data.result);
+
+
+
+//                                $scope.names = response.data.result;
+                                console.log(obj[0].ACTIVITY_SUB_DETAILS);
+//                                $scope.activity_desc = response.data.result[0].ACTIVITY_TYPE_ID.DESCRIPTION;
+                                $scope.durations = obj[0].DURATION_VALUE + " " + obj[0].DURATION_TYPE;
+                                $scope.AVAILABLE_DATES = obj[0].AVAILABLE_DATES;
+                                $scope.ACTIVITY_SUB_DETAILS = obj[0].ACTIVITY_SUB_DETAILS;
+                                $scope.operator_name = obj[0].OPERATOR_NAME;
+                                $scope.operator_image = obj[0].IMAGE;
+                                $scope.operator_desc = obj[0].DESC;
+                                $scope.price = obj[0].PRICE;
+//                                $scope.price = response.data.re;sult[0].PRICE;
+                            });
+                });
+
+
+
+
+
+                function home() {
+                    window.location = "http://play.ionic.io/m/1fd90a4376d9";
+                }
+
+
+                function adventure() {
+                    window.location = "http://play.ionic.io/m/838cead3ddca";
+                }
+
+                function adventureDetails() {
+                    window.location = "http://play.ionic.io/m/aee1e7ec89af";
+                }
+
+                function selectDate(activityId) {
+                    window.location = "select_date.html?activityId=" + activityId;
+                }
+                function yourDetails() {
+                    window.location = "http://play.ionic.io/m/b22b0d6be44a";
+                }
+
+
+
+                function orderSummary() {
+                    window.location = "http://play.ionic.io/m/b6526da1f8eb";
+                }
+
+                function makePayment() {
+                    window.location = "http://play.ionic.io/m/b6526da1f8eb";
+                }
+                function congrats() {
+                    window.location = "http://play.ionic.io/m/0e201b18b11a";
+                }
+
+
+
+
+    </script>
+</body>
+</html>

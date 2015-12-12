@@ -1,0 +1,21 @@
+.upup {
+  display: block;
+  margin-top: -25px;
+  letter-spacing: 1px;
+  font-size: 13px;
+}
+
+.bg{
+   background-image: url("http://s20.postimg.org/au2uz7f65/c835ee9d2c82df5db38963e724b8c80b.jpg");
+      background-repeat: no-repeat;
+    background-size: 100% auto;
+     -webkit-filter: blur(7px);
+  filter: blur(7px);
+  
+  position:fixed !important;
+position:absolute;
+top:0;
+right:0;
+bottom:0;
+left:0;
+  }

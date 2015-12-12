@@ -1,0 +1,244 @@
+
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no, width=device-width">
+        <link href="https://code.ionicframework.com/1.0.0/css/ionic.min.css" rel="stylesheet">
+        <script src="https://code.ionicframework.com/1.0.0/js/ionic.bundle.js"></script>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.3/css/materialize.min.css">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
+
+        <link href="http://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
+        <style>
+            /* Styles here */
+            .bg{
+                background-image: url("http://s20.postimg.org/au2uz7f65/c835ee9d2c82df5db38963e724b8c80b.jpg");
+                background-repeat: no-repeat;
+                background-size: 100% auto;
+                -webkit-filter: blur(7px);
+                filter: blur(7px);
+
+                position:fixed !important;
+                position:absolute;
+                top:0;
+                right:0;
+                bottom:0;
+                left:0;
+            }
+            .no-of-tickets-button{
+                margin-left:0 auto;
+            }
+
+            .round{
+                border-radius:50%;
+                height:60px;
+                width:60px;
+                margin:0 auto; 
+                display:inline-block;
+                margin-top:10px;
+                margin-left:1px;
+                padding-top:10px;
+                background-color:#66cc33;
+
+            }
+
+            .collapse-card{
+                margin-top:7vh;
+                margin-top:-1px;
+            } 
+
+            .collapsible-header{
+                height:55px;
+            }
+            .collapsible-body{
+                min-height:90px;
+            }
+            .sold-out{
+                background-color:#ef4e3a;
+            } 
+            .available{
+                background-color:rgba(245,245,256,0.8);
+
+            }
+            .transparentbg{
+                background-color: rgba(200, 200, 200, 0.5);
+                height:125px;
+                margin-bottom:-30px;
+                z-index:-1;
+            }
+            h4{
+                font-size:20px;
+            }
+
+            @media (min-width:370px){
+                .collapsibl, .collapse-card{
+                    max-width:350px;
+
+                }
+                .centered{
+                    width:400px;
+                    margin:0 auto;
+                }
+                .transparentbg{
+                    max-width:350px;
+                }
+
+            }
+
+        </style>
+    </head>
+    <body ng-app="app" ng-controller="getTicketsUrl">
+    <ion-pane>
+        <div class="bg"></div>
+        <div class="bar bar-header">
+            <button class="button button-icon ion-android-arrow-back" onclick="adventureDetails();"></button>
+            <div class="h1 title">Select Date</div>
+            <button class="button button-icon icon ion-ios-information-outline"></button>
+        </div>
+
+        <ion-content class="padding centered">
+            <div style="width: 300px; height: 60px;" class="spacer"></div>
+
+            <h4 class="padding transparentbg">When do you want to do {{activityName}}?</h4>
+
+            <ul class="collapsible collapse-card" data-collapsible="accordion">
+
+                <li ng-repeat="x in results">
+                    <div class="collapsible-header">{{x.date}}
+                        <div class="right-date" style="float:right"><i class="fa fa-calendar-o"></i>
+                            <p style="display:inline-block;margin-left:-7px;">{{x.numberOfAvailableTickets}} available</p></div>
+                    </div>
+                    <div class="collapsible-body available padding">
+
+
+
+                        <div class="flow-text">
+                            <br>How many tickets do you need?</div>
+                        <div class="no-of-tickets-button">
+                            <button ng-repeat="x1 in range(x.numberOfAvailableTickets)" ng-click="selectTicket(x.date, x1)" class="button round">{{x1}}</button>
+                         
+                            <a href="" class="button round"><div style="font-size:14px">More</div></a>
+
+
+                        </div>
+
+
+
+                    </div>
+                </li>
+
+                <li>
+                    <div class="collapsible-header"> Future
+                        <!--<div class="right-date" style="float:right"><i class="fa fa-calendar-o"></i>-->
+
+                    </div>
+                    <div class="collapsible-body padding available">
+
+                        <p>Due to unpredictable weather conditions, we can't accept pre-booking. We will notify you before we start booking on your desired date.</p>
+                        <form action="#">
+                            <label>Date
+                                <input type="date" class="datepicker"></label>
+                            <div class="input-field">
+                                <input id="email" type="email" class="validate">
+                                <label for="email">Email</label>
+                            </div>
+                        </form>
+                        <a class="waves-effect waves-light btn">Notify Me</a>
+
+                    </div>
+                </li>
+
+            </ul>
+        </ion-content>
+    </ion-pane>
+    <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.3/js/materialize.min.js"></script>
+
+    <script>
+    var app = angular.module('app', ['ionic']);
+
+    $('.datepicker').pickadate({
+        selectMonths: true, // Creates a dropdown to control month
+        selectYears: 15, // Creates a dropdown of 15 years to control year
+        format: 'd mmmm, yyyy',
+        close: 'Done'
+
+
+    });
+    app.controller('getTicketsUrl', function ($scope, $http,$location) {
+        var activityId = $location.absUrl().split('=')[1].split('#')[0];
+        $http.post('https://api.parse.com/1/functions/getTicketsAvailable', {"activityId": activityId},
+        {headers: {'Content-Type': 'application/json',
+                'X-Parse-Application-Id': 'mygNbgzfWdSggHlcU0pcon9TPkeQiHrzPUy2KFUm',
+                'X-Parse-REST-API-Key': 'ImfofbwOkyNh6ZwG4LR1l7XcA5HmYCcJtKqTpqBw'}})
+                .then(function (response) {
+                    var obj = response.data.result;               
+                    $scope.results = JSON.parse(obj.jsonString);
+                    $scope.activityName = obj.activityName;
+                    $scope.activityId = obj.activityId;
+                });
+
+        $scope.range = function (max) {
+            var input = [];
+            for (var i = 1; i <= max; i++) {
+                input.push(i);
+            }
+            return input;
+        }
+        $scope.selectTicket = function (bookDate, ticketCnt) {
+            console.log(bookDate);
+            var activityId = $scope.activityId;
+            $http.post('https://api.parse.com/1/functions/insertOrderTemp', {activityId: activityId, bookingDate:bookDate, ticketCount:ticketCnt},
+                 {headers: {'Content-Type': 'application/json',
+                'X-Parse-Application-Id': 'mygNbgzfWdSggHlcU0pcon9TPkeQiHrzPUy2KFUm',
+                'X-Parse-REST-API-Key': 'ImfofbwOkyNh6ZwG4LR1l7XcA5HmYCcJtKqTpqBw'}})
+                .then(function (response) {
+                    $scope.orderTemp = response.data.result;
+                    window.location = "user_details.html?orderTId="+$scope.orderTemp.objectId;
+                });
+        }
+    });
+
+                                       
+
+
+
+
+                                        function home() {
+                                            window.location = "http://play.ionic.io/m/1fd90a4376d9";
+                                        }
+
+
+                                        function adventure() {
+                                            window.location = "http://play.ionic.io/m/838cead3ddca";
+                                        }
+
+                                        function adventureDetails() {
+                                            window.location = "http://play.ionic.io/m/aee1e7ec89af";
+                                        }
+
+                                        function selectDate() {
+                                            window.location = "http://play.ionic.io/m/f8d35aacffcc";
+                                        }
+                                        function yourDetails() {
+                                            window.location = "http://play.ionic.io/m/b22b0d6be44a";
+                                        }
+
+
+
+                                        function orderSummary() {
+                                            window.location = "http://play.ionic.io/m/b6526da1f8eb";
+                                        }
+
+                                        function makePayment() {
+                                            window.location = "http://play.ionic.io/m/b6526da1f8eb";
+                                        }
+                                        function congrats() {
+                                            window.location = "http://play.ionic.io/m/0e201b18b11a";
+                                        }
+
+    </script>
+</body>
+</html>

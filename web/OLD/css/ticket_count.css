@@ -1,0 +1,37 @@
+.bg{
+   background-image: url("http://s20.postimg.org/au2uz7f65/c835ee9d2c82df5db38963e724b8c80b.jpg");
+      background-repeat: no-repeat;
+    background-size: 100% auto;
+     -webkit-filter: blur(7px);
+  filter: blur(7px);
+  
+  position:fixed !important;
+position:absolute;
+top:0;
+right:0;
+bottom:0;
+left:0;
+  }
+   .round{
+  border-radius:50%;
+  height:65px;
+  width:65px;
+  margin:0 auto;
+  display:inline-block;
+  margin-top:10px;
+  margin-left:1px;
+  padding-top:10px;
+  
+}
+
+.no-of-tickets-button{
+margin-left:5%;
+}
+
+
+.transparentbg{
+    background-color: rgba(200, 200, 200, 0.4);
+height:60px;
+margin-bottom:-30px;
+z-index:-1;
+}

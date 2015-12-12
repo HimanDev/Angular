@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no, width=device-width">
+     <link href="css/ionic/ionic.min.css" rel="stylesheet">
+        <script src="js/ionic.bundle.js"></script>
+    <link href="css/ionic/ionicons.css" rel="stylesheet">
+    <script src="js/app.js"></script>
+
+    <link rel="stylesheet" href="css/ionic/materialize.min.css">
+    <link href="http://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link href="css/custom/adventure.css" rel="stylesheet">
+
+
+</head>
+
+<body ng-app="app">
+    <ion-pane>
+        <div class="bg1"></div>
+        <div class="bar bar-header">
+            <button class="button button-icon ion-android-arrow-back" onclick="home();"></button>
+            <div class="h1 title">Select your Adventure!</div>
+            <button class="button button-icon icon ion-ios-information-outline"></button>
+        </div>
+        <ion-content class="padding" ng-controller="adventureCtrl">
+            <div style="width: 300px; height: 50px;" class="spacer"></div>
+			<span  ng-repeat="x in activities">
+            <div class="card">
+                <div class="card-image">
+                    <div class="round waves-effect waves-block" ng-click="adventureDetailPage(x.objectId);"><img src="{{x.ACTIVITY_TYPE_IMAGE.url}}">
+                    </div>
+                </div>
+                <div class="card-content">
+                    <span class="card-title activator energized">{{x.TITLE}}<i class="material-icons right">more_vert</i></span>
+                    <p><a ng-click="adventureDetailPage(x.objectId);">Adventure Details{{x.objectId}}</a></p>
+	
+                </div>
+                <div class="card-reveal">
+                    <span class="card-title grey-text text-darken-4">{{x.TITLE}}<i class="material-icons right">close</i></span>
+                    <p>{{x.DESCRIPTION}}</p>
+                </div>
+            </div>              
+          </span>
+
+        </ion-content>
+        <ion-footer-bar style="padding:0;" class="margin-bottom:2px; bar-positive">
+            <!-- Dropdown Trigger -->
+            <a class='dropdown-button btn' href='#' data-activates='dropdown1' style="width:100%; height:100%;">Destination : Manali</a>
+
+            <!-- Dropdown Structure -->
+            <ul id='dropdown1' class='dropdown-content'>
+                <li><a href="#!">Other Destinations Coming Soon</a></li>
+                <li><a href="#!">Our First Destination : Manali (India)</a></li>
+
+            </ul>
+        </ion-footer-bar>
+
+    </ion-pane>
+    <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.3/js/materialize.min.js"></script>
+    <script>
+		var app = angular.module('app', ['ionic']);
+                
+        app.controller('adventureCtrl', function ($scope, $http, $location) {
+        	//var param1 = $location.absUrl().split('=')[1].split('#')[0];
+            $http.post('https://api.parse.com/1/functions/getActivityTypes',{dest_objectId:"MZlX3pGTQ2"},
+                    {headers: {'Content-Type': 'application/json',
+                            'X-Parse-Application-Id': 'mygNbgzfWdSggHlcU0pcon9TPkeQiHrzPUy2KFUm',
+                            'X-Parse-REST-API-Key': 'ImfofbwOkyNh6ZwG4LR1l7XcA5HmYCcJtKqTpqBw'}})
+                    .then(function (response) {
+                        //console.log(response.data.result);
+                        $scope.activities = response.data.result;
+                    });
+            	$scope.adventureDetailPage = function(activityId){
+            		adventureDetails(activityId);
+            	}
+        });
+     </script>	
+	
+</body>
+
+</html>

@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<!-- saved from url=(0035)http://play.ionic.io/m/b22b0d6be44a -->
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><style type="text/css">@charset "UTF-8";[ng\:cloak],[ng-cloak],[data-ng-cloak],[x-ng-cloak],.ng-cloak,.x-ng-cloak,.ng-hide:not(.ng-hide-animate){display:none !important;}ng\:form{display:block;}</style>
+  <meta charset="utf-8">
+  <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no, width=device-width">
+  <link href="css/ionic.min.css" rel="stylesheet">
+  <script src="js/ionic.bundle.js"></script>
+  <link href="css/user_detail.css" rel="stylesheet">
+</head>
+
+<body ng-app="app" class="grade-a platform-browser platform-win32 platform-ready">
+<div ng-controller="userDetailCtrl">
+  <ion-pane class="pane">
+  <div class="bg"></div>
+    <div class="bar bar-header">
+      <a href="http://play.ionic.io/m/369bb7eda68b" class="button button-icon ion-android-arrow-back"></a>
+      <div class="h1 title">{{orderTemp.activityName}}</div>
+      <button class="button button-icon icon ion-ios-information-outline"></button>
+    </div>
+    <ion-content class="padding scroll-content ionic-scroll">
+    <div class="scroll" style="transform: translate3d(0px, 0px, 0px) scale(1);" >
+          <br>
+      <br>
+<form name = "userForm" ng-submit="submitForm()" novalidate >
+     <h4 class="padding transparentbg">Awesome! We've kept {{orderTemp.ticketCount}} tickets aside for you. Now, we just need some details so that we can send you your tickets after your payment is successful.</h4>
+
+	<div class="card user-details" >
+
+		  <div class="list">
+		  <label class="item item-input item-floating-label">
+		    <span class="input-label">First Name</span>
+		    <input type="text" placeholder="First Name" name="name" ng-model="user.name"/>
+		     <span ng-show={{user.errorName}}>Required</span>
+		  </label>
+		  <label class="item item-input item-floating-label">
+		    <span class="input-label">Last Name</span>
+		    <input type="text" placeholder="Last Name" ng-model="user.lastName"/>
+		  </label>
+		  <label class="item item-input item-floating-label">
+		    <span class="input-label">Email</span>
+		    <input type="text" placeholder="Email" ng-model="user.email" name="email"/>
+		    <span ng-show={{user.errorEmail}}>Please enter correct email ID</span>
+		  </label>
+		    <label class="item item-input item-floating-label">
+		    <span class="input-label">Phone Number</span>
+		    <input type="text" placeholder="Phone Number" ng-model="user.contact"/>
+		  </label>
+		</div>
+		
+	</div>
+  
+ <button ng-click="user.submitTheForm()"  class="button button-full button-block button-balanced">
+  <b>Continue</b>
+</button>
+<!-- </a> -->
+</form>
+
+    </div><div class="scroll-bar scroll-bar-v"><div class="scroll-bar-indicator scroll-bar-fade-out" style="transform: translate3d(0px, 0px, 0px) scaleY(1); height: 0px;"></div></div></ion-content>
+   
+  </ion-pane>
+  </div>
+<script>
+var app = angular.module('app', ['ionic']);
+app.controller('userDetailCtrl', function ($scope, $http, $location, $window) {
+	var param1 = $location.absUrl().split('=')[1].split('#')[0];
+	var orderTId = param1.split('@')[0];
+	var actId = param1.split('@')[1];
+	var count = param1.split('@')[2];
+    $http.post('https://api.parse.com/1/functions/updateTicketCount',{orderTId:orderTId, ticketCount:count, activityId:actId},
+            {headers: {'Content-Type': 'application/json',
+                    'X-Parse-Application-Id': 'mygNbgzfWdSggHlcU0pcon9TPkeQiHrzPUy2KFUm',
+                    'X-Parse-REST-API-Key': 'ImfofbwOkyNh6ZwG4LR1l7XcA5HmYCcJtKqTpqBw'}})
+            .then(function (response) {
+                console.log(response.data.result);
+                $scope.orderTemp = response.data.result;
+                // create a blank object to handle form data.
+                $scope.user = {};
+                $scope.user.errorName = false;
+                $scope.user.errorEmail = false;
+              // calling our submit function.
+                $scope.user.submitTheForm = function() {
+                	alert('form submitted');
+            		var regEmail = /\S+@\S+\.\S+/;
+            		var error =false;
+                	if(!$scope.user.name){
+                		$scope.user.errorName = true;
+                		error = true;
+                	}
+                	if(!$scope.user.email || !regEmail.test($scope.user.email) ){
+                		$scope.user.errorEmail = true;
+                		error =true;
+                	}
+                	if(error){
+                		return;
+                	}
+                	var dataObject = {
+                            firstName: $scope.user.name,
+                            lastName:$scope.user.lastName,
+                            emailId:$scope.user.email,
+                            contact:$scope.user.contact,
+                            orderTId:$scope.orderTemp.orderTId
+                        };
+                        //bhai here u can call cloud code to save the data and the next line will redircet
+                        $http.post('https://api.parse.com/1/functions/updateOrCreateUser',dataObject,
+            			{headers: {'Content-Type': 'application/json',
+                    	'X-Parse-Application-Id': 'mygNbgzfWdSggHlcU0pcon9TPkeQiHrzPUy2KFUm',
+                    	'X-Parse-REST-API-Key': 'ImfofbwOkyNh6ZwG4LR1l7XcA5HmYCcJtKqTpqBw'}}).then(function (response) {
+                    		$window.location.href = 'ordersummary.html?orderTId='+$scope.orderTemp.orderTId;
+                    	});
+
+                };
+            });
+});
+</script>
+
+
+</body></html>

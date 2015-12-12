@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.5/angular.min.js"></script>
+    </head>
+
+    <body ng-app="myapp">
+
+        <div ng-controller="MyController" >
+            <form>
+                Name :   <input type="text" id="name" ng-model="myForm.name" ng-minlength="1" ng-maxlength="50">  <br/>
+
+
+
+
+                <button ng-click="myForm.submitTheForm()">Submit Form</button>
+            </form>
+
+
+
+        </div>
+
+        <script>
+            angular.module("myapp", [])
+                    .controller("MyController", function ($scope, $http, $window) {
+                        $scope.myForm = {};
+                        $scope.myForm.name = "Himanshu Na Bhai";
+                        $scope.myForm.submitTheForm = function (item, event) {
+                            console.log("--> Submitting form");
+                            var dataObject = {
+                                name: $scope.myForm.name
+                            };
+                            //bhai here u can call cloud code to save the data and the next line will redircet
+                            console.log(dataObject);
+                            $window.location.href = 'http://www.google.com';
+
+                        }
+
+                    });
+        </script>
+
+    </body>
+</html>

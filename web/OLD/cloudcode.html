@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<html>
+    <head>
+        <title>TODO supply a title</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <script src="js/jquery-1.11.3.min.js"></script>
+        <script src="http://www.parsecdn.com/js/parse-1.4.0.min.js"></script>
+        <!--<script src="http://www.parsecdn.com/js/parse-1.6.7.min.js"></script>-->
+
+        <script>
+            $(document).ready(function () {
+                Parse.initialize("mygNbgzfWdSggHlcU0pcon9TPkeQiHrzPUy2KFUm", "y0Q7vIAvUoLu3HiWrj5nLY7BUzfxShF41yVEia7X");
+                var activityId =  request.params.activityId;
+                var bookingDate =  request.params.bookingDate;
+
+                var minDate = new Date(bookingDate);
+                minDate.setHours(0, 0, 0, 0);
+                var maxDate = new Date();
+                maxDate.setDate(minDate.getDate() + 1);
+                maxDate.setHours(0, 0, 0, 0);
+                var Ticket = Parse.Object.extend
+                var date = new Date(bookingDate);
+                var selectTicketCount =request.params.ticketCount;
+                var Activity = Parse.Object.extend("ACTIVITY");
+                var Destination = Parse.Object.extend("DESTINATION");
+                var Ticket = Parse.Object.extend("TICKET");
+
+                var activity = new Activity();
+                activity.id = activityId;
+
+                var query = new Parse.Query(Ticket);
+                query.select("TICKET_SOLD_COUNT");
+                query.equalTo("ACTIVITY_ID", activity);//ACTIVITY_DATE_TIME
+                query.greaterThanOrEqualTo("ACTIVITY_DATE_TIME", minDate)
+                query.lessThan("ACTIVITY_DATE_TIME", maxDate)
+
+                query.find({
+                    success: function (results) {
+                        var totalSoldCount = 0;
+                        for (var i = 0; i < results.length; i++) {
+                            totalSoldCount = totalSoldCount + results[i].get('TICKET_SOLD_COUNT');
+                        }
+                        query = new Parse.Query(Activity);
+                        query.select("TOTAL_TICKET_COUNT", "PRICE");
+
+                        query.get(activityId, {
+                            success: function (result) {
+                                var totalTicketCount = result.get('TOTAL_TICKET_COUNT');
+                                var remainCount = (parseInt(totalTicketCount) - parseInt(totalSoldCount));
+                                var OrderTemp = Parse.Object.extend("ORDER_TEMP");
+                                var orderTemp = new OrderTemp();
+                                orderTemp.set("BOOKING_DATE", date);
+                                orderTemp.set("ACTIVITY_ID", activity);
+                                orderTemp.set("REMAIN_TICKET_COUNT", remainCount);
+                                orderTemp.set("FLAG_ACTIVE", true);
+                                var orderAmt = parseInt(selectTicketCount) * parseInt(result.get('PRICE'));
+                                orderTemp.set("ORDER_AMOUNT", orderAmt);
+                                orderTemp.set("TICKET_COUNT", parseInt(selectTicketCount));
+                                orderTemp.save(null, {
+                                    success: function (orderTemp1) {
+                                         response.success(orderTemp1);
+//                                        console.log(orderTemp1);
+                                    },
+                                    error: function (error) {
+                                        response.error("error");
+                                    }
+                                });
+                            },
+                            error: function (error) {
+                                response.error("error");
+                            }
+                        });
+                    },
+                    error: function (error) {
+                        response.error("error");
+                    }
+                });
+            });
+        </script>
+    </head>
+
+    <body>
+        <div>TODO write content</div>
+    </body>
+</html>

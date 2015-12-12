@@ -1,177 +1,89 @@
-
 <!DOCTYPE html>
 <html>
 
-    <head>
-        <meta charset="utf-8">
-        <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no, width=device-width">
-        <link href="css/ionic.min.css" rel="stylesheet">
-        <script src="js/ionic.bundle.js"></script>
-        <link href="css/home_style.css" rel="stylesheet">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no, width=device-width">
+    <link href="css/ionic/ionic.min.css" rel="stylesheet">
+    <script src="js/ionic.bundle.js"></script>
+    <link href="css/ionic/ionicons.css" rel="stylesheet">
+
+    <script src="js/app.js"></script>
+    <script src="https://raw.githubusercontent.com/WickyNilliams/enquire.js/master/dist/enquire.min.js"></script>
+    <link href="css/custom/home.css" rel="stylesheet">
 
 
-    </head>
+</head>
 
-    <body ng-app="app">
+<body ng-app="app">
     <ion-pane>
-        <div class="bg1"></div>
-        <ion-content scroll="false" class=" content" style="background: url(img/hS89oi2jSSOCjI46ejWQ_iphone_6_wallpapers.jpg) no-repeat center;">
+        <div class="bg1 animated pulse"></div>
+        <ion-content class="padding zed" scroll="false">
 
+            <div class="person-container round hidden">
+                <button onclick="signup()" class="button button-icon icon ion-ios-person-outline"></button>
+            </div>
 
-            <div style="width: 300px; height: 60px;" class="spacer"></div>
-            <div class="red padding">
-                <a style="" class="hidden" id="animated-delay" href="destination.html">
+            <button onclick="adventure();" class="row red button button-assertive animated pulse2" id="redtogreen">
+                <div class="col col-75">
                     <h4>Pick your</h4>
                     <h1>Adventure</h1>
-                </a>
-            </div>
+                </div>
+                <div class="col" style="background-color:rgba(0, 0, 0, 0.1); height:75px; margin-top:-6px; margin-right:-6px; padding-top:16px"><i class="ion-chevron-right"></i></div>
+            </button>
 
-            <div class="login-icon">
-                <button onclick="signup()" class="button button-icon icon ion-person"></button>
-            </div>
-
-            <div class="bar bar-header bottom-footer-review">
-
-                <ion-slide-box on-slide-changed="slideHasChanged($index)" class="footer-review">
-                    <ion-slide>
-                        <div class="one">
-                            <a class="item item-thumbnail-left item-text-wrap" href="#">
-                                <img class="round-avatar" src="http://s20.postimg.org/u2ugw9ojx/image.jpg">
-                                <div class="avatar-name">
-                                    <h5>Angry Bird</h5>
-                                    <h6>January 1, 2016</h6>
-                                    <i class="icon ion-ios-star"></i>
-                                    <i class="icon ion-ios-star"></i>
-                                    <i class="icon ion-ios-star">
-
-
-                                    </i>
-                                    <i class="icon ion-ios-star"></i>
-                                    <i class="icon ion--ios-star"></i><i class="icon ion-ios-star-half"></i>
-                                    <br> Hunt factor has helped me control my anger! Thank you so much!
-                                </div>
-                            </a>
-                        </div>
-                    </ion-slide>
-                    <ion-slide>
-                        <div class="two">
-                            <a class="item item-thumbnail-left item-text-wrap" href="#">
-                                <img class="round-avatar" src="http://s20.postimg.org/wa3axxj7x/10348539_819831834705798_5451264900670996215_n.jpg">
-                                <div class="avatar-name">
-                                    <h5>Brittik Basu</h5>
-                                    <h6>January 1, 2016</h6>
-                                    <i class="icon ion-star"></i><i class="icon ion-star"></i><i class="icon ion-star"></i><i class="icon ion-star"></i><i class="icon ion-star"></i>
-                                    <br> I love the concept of HuntFactor!
-                                </div>
-                            </a>
-                        </div>
-                    </ion-slide>
-                    <ion-slide>
-                        <div class="three">
-                            <a class="item item-thumbnail-left item-text-wrap" href="#">
-                                <img class="round-avatar" src="http://s20.postimg.org/utn721qx9/AAEAAQAAAAAAAAMQAAAAJGNk_MTQ0_Yz_Q2_LTM3_YWMt_NDY0_MC1h.jpg">
-                                <div class="avatar-name">
-                                    <h5>Sandeep Alagala</h5>
-                                    <h6>January 1, 2016</h6>
-                                    <i class="icon ion-ios-star"></i>
-                                    <i class="icon ion-ios-star"></i>
-                                    <i class="icon ion-ios-star">
-
-
-                                    </i>
-                                    <i class="icon ion-ios-star"></i>
-                                    <i class="icon ion--ios-star"></i><i class="icon ion-ios-star-half"></i>
-                                    <br> I work really hard! Thanks to HuntFactor!
-                                </div>
-                            </a>
-                        </div>
-                    </ion-slide>
-                </ion-slide-box>
-
-            </div>
         </ion-content>
-
-
+        <ion-footer-bar class="review-container">
+            <ion-slide-box on-slide-changed="slideHasChanged($index)" class="footer-review" does-continue="true" slide-interval="7000" show-pager="false" auto-play="true">
+                <ion-slide class="slide-height">
+                    <a class="item item-thumbnail-left item-text-wrap list-height" href="#">
+                        <img class="round-avatar" src="http://s20.postimg.org/u2ugw9ojx/image.jpg">
+                        <div class="avatar-name">
+                            <div class="reviewer-details">
+                                <h5>Angry Bird</h5>
+                                <h6>January 1, 2016</h6></div>
+                            <i class="icon ion-ios-star"></i>
+                            <i class="icon ion-ios-star"></i>
+                            <i class="icon ion-ios-star"></i>
+                            <i class="icon ion--ios-star"></i>
+                            <i class="icon ion-ios-star-half"></i>
+                            <br>Hunt factor has helped me control my anger!
+                            <br> Thank you so much!
+                        </div>
+                    </a>
+                </ion-slide>
+                <ion-slide class="slide-height">
+                    <a class="item item-thumbnail-left item-text-wrap list-height" href="#">
+                        <img class="round-avatar" src="http://s20.postimg.org/wa3axxj7x/10348539_819831834705798_5451264900670996215_n.jpg">
+                        <div class="avatar-name">
+                            <div class="reviewer-details">
+                                <h5>Brittik Basu</h5>
+                                <h6>January 1, 2016</h6></div>
+                            <i class="icon ion-star"></i><i class="icon ion-star"></i><i class="icon ion-star"></i><i class="icon ion-star"></i>
+                            <i class="icon ion-star"></i>
+                            <br> I love the concept of HuntFactor!
+                        </div>
+                    </a>
+                </ion-slide>
+                <ion-slide>
+                    <a class="item item-thumbnail-left item-text-wrap list-height" href="#">
+                        <img class="round-avatar" src="http://s20.postimg.org/utn721qx9/AAEAAQAAAAAAAAMQAAAAJGNk_MTQ0_Yz_Q2_LTM3_YWMt_NDY0_MC1h.jpg">
+                        <div class="avatar-name">
+                            <div class="reviewer-details">
+                                <h5>Sandeep Alagala</h5>
+                                <h6>January 1, 2016</h6></div>
+                            <i class="icon ion-ios-star"></i>
+                            <i class="icon ion-ios-star"></i>
+                            <i class="icon ion-ios-star">
+</i><i class="icon ion-ios-star"></i>
+                            <i class="icon ion--ios-star"></i><i class="icon ion-ios-star-half"></i>
+                            <br> I work really hard! Thanks to HuntFactor!
+                        </div>
+                    </a>
+                </ion-slide>
+            </ion-slide-box>
+        </ion-footer-bar>
     </ion-pane>
-    <script>
-        angular.module('app', ['ionic']);
-
-
-
-        angular.module('app', ['ionic']);
-        (function () {
-            setInterval(
-                    function () {
-                        document.getElementById("animated-delay").className = "button-large button button-block button-assertive animated zoomIn";
-                    }, 1100
-                    )
-        })();
-
-
-
-
-
-        /********INDEX*****************/
-
-        function home() {
-            window.location = "http://play.ionic.io/m/545d98fd15cf";
-        }
-
-        function destination() {
-            window.location = "http://play.ionic.io/m/b413f2b69762";
-        }
-
-        function activity() {
-            window.location = "http://play.ionic.io/m/861d4a89ea3b";
-        }
-
-        function buynow() {
-            window.location = "http://play.ionic.io/m/5d9f0d55b283";
-        }
-
-
-        function when() {
-            window.location = "http://play.ionic.io/m/6612b15b91e3";
-        }
-
-        function tickets() {
-            window.location = "http://play.ionic.io/m/369bb7eda68b";
-        }
-
-
-        function getdetails() {
-            window.location = "http://play.ionic.io/m/b22b0d6be44a";
-        }
-
-        function makepayment() {
-            window.location = "http://play.ionic.io/m/fd9c6730e399";
-        }
-        function congrats() {
-            window.location = "http://play.ionic.io/m/0e201b18b11a";
-        }
-
-        function signup() {
-            window.location = "http://play.ionic.io/m/c8366da86000";
-        }
-        function signin() {
-            window.location = "http://play.ionic.io/m/d2584dc0f0e9";
-        }
-
-        function forgotpassword() {
-            window.location = "http://play.ionic.io/m/d06c194b0082";
-        }
-
-
-
-
-
-
-
-
-    </script>
 </body>
 
 </html>
-
-
-
