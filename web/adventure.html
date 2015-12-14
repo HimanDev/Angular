@@ -63,7 +63,7 @@
     <script>
 		var app = angular.module('app', ['ionic']);
                 
-        app.controller('adventureCtrl', function ($scope, $http, $location) {
+        app.controller('adventureCtrl', function ($scope, $http) {
         	//var param1 = $location.absUrl().split('=')[1].split('#')[0];
             $http.post('https://api.parse.com/1/functions/getActivityTypes',{dest_objectId:"MZlX3pGTQ2"},
                     {headers: {'Content-Type': 'application/json',

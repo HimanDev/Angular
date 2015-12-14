@@ -1,0 +1,141 @@
+/* Styles here */
+
+
+a{
+    text-decoration:none;
+}
+.auth-view {
+    background-color: #fcfcfc;
+
+}
+
+.auth-view
+ion-nav-bar
+ion-header-bar {
+    background-color: #fcfcfc !important;
+    background: #fcfcfc !important;
+    border: none !important;
+    background-size: 0px !important;
+}
+
+.auth-view
+ion-nav-bar
+* {
+    color: #333333;
+}
+
+.auth-view
+ion-nav-bar
+*
+.buttons button::before {
+    color: #333333;
+}
+
+.auth-view
+.form-title {
+    color: #333333;
+    font-size: 22px;
+    font-weight: 400;
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.auth-view
+.form-sub-title {
+    text-align: center;
+    color: gray;
+    text-align: center;
+    font-size: 16px;
+    font-weight: 400;
+    margin-bottom: 20px;
+}
+
+.auth-view
+.social-sign-up.button-bar > .button:before {
+    font-size: 28px;
+}
+
+.auth-view
+.social-sign-up.button-bar > .button:first-child {
+    border-radius: 6px 0px 0px 6px;
+}
+
+.auth-view
+.social-sign-up.button-bar > .button:last-child {
+    border-radius: 0px 6px 6px 0px;
+}
+
+.auth-view
+.social-sign-up
+.ion-social-facebook {
+    background: #294886;
+}
+
+.auth-view
+.social-sign-up
+.ion-social-google {
+    background: #e50000;
+}
+
+.auth-view
+.separator-mark {
+    width:70px;
+    height: 30px;
+    line-height: 30px;
+    text-align: center;
+    color: #999999;
+    font-size: 16px;
+}
+
+.auth-view
+.separator-line {
+    display: block;
+    height: 1px;
+    width:70%;
+    border: 0;
+    border-top: 1px solid rgba(153, 153, 153, 0.8);
+    padding: 0;
+    margin: 15px 0px;
+}
+
+.auth-view
+.form-fields-outer {
+    margin: 0px;
+    background-color: #fcfcfc;
+}
+
+.auth-view
+.form-fields-outer .row,
+.auth-view
+.form-fields-outer
+.col {
+    padding: 0px;
+}
+
+
+.auth-view
+.form-fields-outer
+.multi-inputs
+.col:first-child .item.item-input {
+    border-right: none;
+}
+
+
+.auth-view
+.form-fields-outer .login.button,
+.auth-view
+.form-fields-outer .sign-up.button,
+.auth-view
+.form-fields-outer
+.recover-password {
+    color: #FF4C4C;
+    text-transform: uppercase;
+    font-weight: 500;
+}
+
+
+
+
+
+
+
