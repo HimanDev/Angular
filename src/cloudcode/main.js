@@ -1,3 +1,29 @@
+var Mailgun = require('mailgun');
+Mailgun.initialize('dprealty.in', 'key-e381d5ad254b2c858fce41dc06ea9f79');
+//Mailgun.initialize('sandbox7783da52ab3a4cff818cb04e2df818a6.mailgun.org', 'key-e381d5ad254b2c858fce41dc06ea9f79');
+
+
+Parse.Cloud.define("sendEmail", function(request, response) {
+
+    console.log(request.params.email);
+
+    Mailgun.sendEmail({
+        to: request.params.email,
+        from: "My Awesome Name <ajay@dprealty.in>",
+        subject: "Hello World!",
+        text: "Hello from Parse Mailgun! It's awesome!"
+    }, {
+        success: function(httpResponse) {
+            console.log(httpResponse);
+            response.success("Email sent!");
+        },
+        error: function(httpResponse) {
+            console.error(httpResponse);
+            response.error("Uh oh, something went wrong");
+        }
+    });
+});
+
 Parse.Cloud.define("forgotPassword", function(request, response) {
 
     var _email = request.params.credentials.email;
