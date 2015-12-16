@@ -86,6 +86,16 @@
                         console.log(response.data.result);
 //                    $scope.user = response.data.result;
                     });
+
+            $http.post('https://api.parse.com/1/functions/sendEmail',{email : credentials.username},
+                    {headers: {'Content-Type': 'application/json',
+                        'X-Parse-Application-Id': 'WTMvlgpJ6T7Ywyn7r7uu3q0iQdRevELTWipdzUOP',
+                        'X-Parse-REST-API-Key': 'N4uJJsOGJ9mLZEjJRALMLA0HOtfcYZRVzHg8GXxv'}})
+                    .then(function (response) {
+                        console.log(response.data.result);
+//                    $scope.user = response.data.result;
+                    });
+            s
         };
     });
 </script>
